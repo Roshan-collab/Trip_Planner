@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+
+    <title>Map at a specified location</title>
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+    <link rel="stylesheet" type="text/css" href="demo.css" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="../template.css" />
+    <script type="text/javascript" src='../test-credentials.js'></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+  <script type="text/javascript" >window.ENV_VARIABLE = 'https://developer.here.com'</script><script src='https://developer.here.com/javascript/src/iframeheight.js'></script></head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+  <body>
+
+
+    <div id="map" style="width: 100%; height: 800px; background: white" >
+      <nav class="navbar" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#home">Home</a>
+          <a class="navbar-brand" href="#about">About</a>
+          <a class="navbar-brand" href="#contact">Contact</a>
+          <div>
+            <form action="/trip_page" class="d-flex" role="search" method="post">
+              <input  class="form-control me-2" type="text" placeholder="Enter the Location" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav> 
+      
+
+
+    <script  type="text/javascript" charset="UTF-8" >
+
+
+
+
+/**
+ * Moves the map to display over Berlin
+ *
+ * @param  {H.Map} map      A HERE Map instance within the application
+ */
+function moveMapToBerlin(map){
+  map.setCenter({lat:18.8020064, lng:74.5306793});
+  map.setZoom(14);
+}
+
+/**
+ * Boilerplate map initialization code starts below:
+ */
+
+//Step 1: initialize communication with the platform
+// In your own code, replace variable window.apikey with your own apikey
+var platform = new H.service.Platform({
+  apikey: "kHtzu_8jxXmIbcdI4AdOUFD2nebK1q8wE3HgAr1rJRY"
+});
+var defaultLayers = platform.createDefaultLayers();
+
+//Step 2: initialize a map - this map is centered over Europe
+var map = new H.Map(document.getElementById('map'),
+  defaultLayers.vector.normal.map,{
+  center: {lat:50, lng:5},
+  zoom: 4,
+  pixelRatio: window.devicePixelRatio || 1
+});
+// add a resize listener to make sure that the map occupies the whole container
+window.addEventListener('resize', () => map.getViewPort().resize());
+
+//Step 3: make the map interactive
+// MapEvents enables the event system
+// Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+// Create the default UI components
+var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+// Now use the map as required...
+window.onload = function () {
+  moveMapToBerlin(map);
+
+}
+
+    </script>
+  </body>
+</html>
